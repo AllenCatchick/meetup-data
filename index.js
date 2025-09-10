@@ -54,6 +54,23 @@ app.post("/event", async (req, res) => {
     res.status(500).json({error: "Failed to add new event"})
   }
 }) 
+async function updateImageUrl(eventId, dataToUpdate){
+  try {
+    const event = await Meetup.findByIdAndUpdate(eventId, dataToUpdate, {new:true})
+    return event 
+  } catch (error) {
+    throw error 
+  }
+} 
+
+app.post("/events/id/:eventId", async (req, res) => {
+  try {
+    const event = await updateImageUrl(req.params.eventId, req.body)
+    res.json(event) 
+  } catch (error) {
+    res.status(500).json({error: "Unable to fetch event with id."})
+  }
+})
 
 async function readAllEvents(){
   try {
