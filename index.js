@@ -53,6 +53,28 @@ app.post("/event", async (req, res) => {
     console.error("Error adding event:", error);
     res.status(500).json({error: "Failed to add new event"})
   }
+}) 
+
+async function readAllEvents(){
+  try {
+    const event = Meetup.find() 
+    return event 
+  } catch (error) {
+    throw error 
+  }
+}
+
+app.get("/events", async (req, res) => {
+  try {
+    const event = await readAllEvents() 
+    if(event){
+      res.status(200).json({message: "Events Found", event}) 
+    } else {
+      res.status(404).json({error: "NO events data found."})
+    }
+  } catch (error) {
+    res.status(500).json({error: "Unable to fetch events data."})
+  }
 })
 
 const PORT = 3000 
