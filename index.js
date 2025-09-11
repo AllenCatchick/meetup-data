@@ -72,14 +72,7 @@ app.post("/events/id/:eventId", async (req, res) => {
   }
 })
 
-async function readAllEvents(){
-  try {
-    const event = Meetup.find() 
-    return event 
-  } catch (error) {
-    throw error 
-  }
-} 
+
 
 async function updateImageUrl(eventId, newUrl){
   try {
@@ -106,6 +99,14 @@ app.post("/events/id/:eventId/addImage", async (req, res) => {
 });
 
 
+async function readAllEvents(){
+  try {
+    const event = Meetup.find() 
+    return event 
+  } catch (error) {
+    throw error 
+  }
+} 
 
 app.get("/events", async (req, res) => {
   try {
