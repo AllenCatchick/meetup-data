@@ -54,49 +54,49 @@ app.post("/event", async (req, res) => {
     res.status(500).json({error: "Failed to add new event"})
   }
 }) 
-async function updateImageUrl(eventId, dataToUpdate){
-  try {
-    const event = await Meetup.findByIdAndUpdate(eventId, dataToUpdate, {new:true})
-    return event 
-  } catch (error) {
-    throw error 
-  }
-} 
+// async function updateImageUrl(eventId, dataToUpdate){
+//   try {
+//     const event = await Meetup.findByIdAndUpdate(eventId, dataToUpdate, {new:true})
+//     return event 
+//   } catch (error) {
+//     throw error 
+//   }
+// } 
 
-app.post("/events/id/:eventId", async (req, res) => {
-  try {
-    const event = await updateImageUrl(req.params.eventId, req.body)
-    res.json(event) 
-  } catch (error) {
-    res.status(500).json({error: "Unable to fetch event with id."})
-  }
-})
+// app.post("/events/id/:eventId", async (req, res) => {
+//   try {
+//     const event = await updateImageUrl(req.params.eventId, req.body)
+//     res.json(event) 
+//   } catch (error) {
+//     res.status(500).json({error: "Unable to fetch event with id."})
+//   }
+// })
 
 
 
-async function updateImageUrl(eventId, newUrl){
-  try {
-    const event = await Meetup.findByIdAndUpdate(
-      eventId,
-      { $push: { speakerImg: newUrl } },   
-      { new: true }
-    );
-    return event;
-  } catch (error) {
-    throw error;
-  }
-}
+// async function updateImageUrl(eventId, newUrl){
+//   try {
+//     const event = await Meetup.findByIdAndUpdate(
+//       eventId,
+//       { $push: { speakerImg: newUrl } },   
+//       { new: true }
+//     );
+//     return event;
+//   } catch (error) {
+//     throw error;
+//   }
+// }
 
-app.post("/events/id/:eventId/addImage", async (req, res) => {
-  try {
-    const { newUrl } = req.body; 
-    const event = await updateImageUrl(req.params.eventId, newUrl);
-    res.json(event);
-  } catch (error) {
-    console.error("Error updating image:", error);
-    res.status(500).json({ error: "Unable to add new image URL." });
-  }
-});
+// app.post("/events/id/:eventId/addImage", async (req, res) => {
+//   try {
+//     const { newUrl } = req.body; 
+//     const event = await updateImageUrl(req.params.eventId, newUrl);
+//     res.json(event);
+//   } catch (error) {
+//     console.error("Error updating image:", error);
+//     res.status(500).json({ error: "Unable to add new image URL." });
+//   }
+// });
 
 
 async function readAllEvents(){
