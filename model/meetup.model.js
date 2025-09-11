@@ -51,10 +51,10 @@ const meetupSchema = new mongoose.Schema({
         type: String,
         required: true
     },
-    speakerImg: {
+    speakerImg: [{
         type: String,
         required: true
-    },
+    }],
     speakerName: [{
         type: String,
         required: true
