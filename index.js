@@ -79,7 +79,33 @@ async function readAllEvents(){
   } catch (error) {
     throw error 
   }
+} 
+
+async function updateImageUrl(eventId, newUrl){
+  try {
+    const event = await Meetup.findByIdAndUpdate(
+      eventId,
+      { $push: { speakerImg: newUrl } },   
+      { new: true }
+    );
+    return event;
+  } catch (error) {
+    throw error;
+  }
 }
+
+app.post("/events/id/:eventId/addImage", async (req, res) => {
+  try {
+    const { newUrl } = req.body; 
+    const event = await updateImageUrl(req.params.eventId, newUrl);
+    res.json(event);
+  } catch (error) {
+    console.error("Error updating image:", error);
+    res.status(500).json({ error: "Unable to add new image URL." });
+  }
+});
+
+
 
 app.get("/events", async (req, res) => {
   try {
